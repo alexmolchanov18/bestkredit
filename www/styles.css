@@ -380,3 +380,18 @@
 .banks{
         justify-content: center;
 }
+.viber_chat {
+    display: block;
+    position: fixed;
+    bottom: 110px;
+    right: 40px;
+    cursor: pointer;
+    background-color: #665cac;
+    width: 60px;
+    height: 60px;
+    background-image: url(/images/viber.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 70%;
+    border-radius: 50%;
+}

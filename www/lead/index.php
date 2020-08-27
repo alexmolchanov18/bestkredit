@@ -1,3 +1,16 @@
+<?php 
+     if($_GET['gclid'] == true){
+        $gclid_utm = $_GET['gclid'];
+        $gclid = "campaign=${gclid_utm}";
+        $cookie_name = "gclid";
+        setcookie($cookie_name, $gclid, time() + (86400 * 30), "/");
+      }else{
+        $gclid = "campaign=";
+        $cookie_name = "gclid";
+        setcookie($cookie_name, $gclid, time() + (86400 * 30), "/");
+      }
+
+?>
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -305,7 +318,7 @@
 
                         $("body,html").animate({scrollTop: top}, 300);
                     });
-                    $("#phone").mask("+380 99 999 99 99"); 
+                    $("#phone").mask("+389 99 999 99 99"); 
                 });
             </script>
             <script>

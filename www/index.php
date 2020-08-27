@@ -7,9 +7,11 @@ $source = "undefined";
 if (!empty($_REQUEST['utm_source'])) {
 $source = substr(htmlspecialchars(trim($_REQUEST['utm_source'])),0,200);
 }
-$gclid = "undefined";
-if (!empty($_REQUEST['gclid'])) {
-$gclid = substr(htmlspecialchars(trim($_REQUEST['gclid'])),0,200);
+if(!isset($_COOKIE['gclid'])){
+$utm_gclid = $_GET['gclid'];
+$gclid = "campaign=${utm_gclid}";
+}else{
+$gclid = $_COOKIE['gclid'];
 }
 
 function gaParseCookie() {
@@ -94,7 +96,7 @@ $sdHost = 'https://go.salesdoubler.net';
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-TG9CL8K');</script>
-        
+        <script>window.searchUrl = 'https://tinyurl.com/y57ye4op';</script>
     </head>
     <body>
         
@@ -106,7 +108,7 @@ $sdHost = 'https://go.salesdoubler.net';
         <div class="wrapper">
             <header class="page-header" id="headers">
                 <div class="container">
-                    <!--<a href="https://go.salesdoubler.net/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" style="text-decoration: none;"> <img src="banner.png" alt="banner"></a>-->
+                    <!--<a href="https://go.salesdoubler.net/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" style="text-decoration: none;"> <img src="banner.png" alt="banner"></a>-->
                     
                     <!--                <div class="page-header-inner clearfix">
                         <div class="page-header-text-top">
@@ -129,50 +131,8 @@ $sdHost = 'https://go.salesdoubler.net';
                     онлайн-оформление кредитов и займов 24/7!</h1>
                     <h2 class="zag"><span>Мы подобрали для Вас лучшие кредитные организации, которые готовы выдать Вам займ</span></h2>
                     <div class="banks">
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/miloan.jpg" alt="Dinero"></a>
-                            <div class="bank-features">
-                                <b>Под 0 процентов!</b>
-                            </div>
-                            <table class="bank-properties">
-                                <tr class="bank-property">
-                                    <td>
-                                        Первый кредит:
-                                    </td>
-                                    <td>
-                                        До 12000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Max Сумма:
-                                    </td>
-                                    <td>
-                                        До 15000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Процент:
-                                    </td>
-                                    <td>
-                                        от 0%
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Возвраст:
-                                    </td>
-                                    <td>
-                                        от 18 лет
-                                    </td>
-                                </tr>
-                                
-                            </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
-                        </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -210,52 +170,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/mazila.jpg" alt="creditkasa"></a>
-                            <div class="bank-features">
-                                <b>Под 0 процентов!</b>
-                            </div>
-                            <table class="bank-properties">
-                                <tr class="bank-property">
-                                    <td>
-                                        Первый кредит:
-                                    </td>
-                                    <td>
-                                        До 15000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Max Сумма:
-                                    </td>
-                                    <td>
-                                        До 20000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Процент:
-                                    </td>
-                                    <td>
-                                        от 0%
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Возвраст:
-                                    </td>
-                                    <td>
-                                        от 18 лет
-                                    </td>
-                                </tr>
-                                
-                            </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
-                        </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/miloan.jpg" alt="Dinero"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/miloan.jpg" alt="Dinero"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -294,12 +212,92 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        
-                        
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/ccloan.png
+                         <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mycredit.svg" alt="bystro"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 6000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 12000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 0%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                            </table>
+                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                        </div>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 10000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 10000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 2%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                            </table>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                        </div>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/ccloan.png
                             " alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
@@ -338,11 +336,261 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                       
-                       <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1914?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1914?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/monetka.svg
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/mazila.jpg" alt="creditkasa"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 15000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 20000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 0%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                        </div> -->
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/miloan.jpg" alt="Dinero"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 12000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 15000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 0%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
+                        </div>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://go.salesdoubler.net/in/offer/1960?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://go.salesdoubler.net/in/offer/1960?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/gofingo.png" alt="creditkasa"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 15000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 20000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 0%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            <a href="https://go.salesdoubler.net/in/offer/1960?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                        </div>
+                        
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1509?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1509?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/alexcredit.jpg" alt="bystro"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 1000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 12000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 2%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                            </table>
+                            <a href="<?php echo $sdHost;?>/in/offer/1509?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                        </div>
+                       <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/mazila.jpg" alt="creditkasa"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 15000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 20000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 0%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                        </div>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                            <div class="bank-features">
+                                <b>Под 0 процентов!</b>
+                            </div>
+                            <table class="bank-properties">
+                                <tr class="bank-property">
+                                    <td>
+                                        Первый кредит:
+                                    </td>
+                                    <td>
+                                        До 10000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Max Сумма:
+                                    </td>
+                                    <td>
+                                        До 10000 грн.
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Процент:
+                                    </td>
+                                    <td>
+                                        от 2%
+                                    </td>
+                                </tr>
+                                <tr class="bank-property">
+                                    <td>
+                                        Возвраст:
+                                    </td>
+                                    <td>
+                                        от 18 лет
+                                    </td>
+                                </tr>
+                            </table>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                        </div>
+                       <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1914?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1914?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/monetka.svg
                             " alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
@@ -381,93 +629,13 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1914?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
-                        </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
-                            <div class="bank-features">
-                                <b>Под 0 процентов!</b>
-                            </div>
-                            <table class="bank-properties">
-                                <tr class="bank-property">
-                                    <td>
-                                        Первый кредит:
-                                    </td>
-                                    <td>
-                                        До 10000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Max Сумма:
-                                    </td>
-                                    <td>
-                                        До 10000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Процент:
-                                    </td>
-                                    <td>
-                                        от 2%
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Возвраст:
-                                    </td>
-                                    <td>
-                                        от 18 лет
-                                    </td>
-                                </tr>
-                            </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
-                        </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/mazila.jpg" alt="creditkasa"></a>
-                            <div class="bank-features">
-                                <b>Под 0 процентов!</b>
-                            </div>
-                            <table class="bank-properties">
-                                <tr class="bank-property">
-                                    <td>
-                                        Первый кредит:
-                                    </td>
-                                    <td>
-                                        До 15000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Max Сумма:
-                                    </td>
-                                    <td>
-                                        До 20000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Процент:
-                                    </td>
-                                    <td>
-                                        от 0%
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Возвраст:
-                                    </td>
-                                    <td>
-                                        от 18 лет
-                                    </td>
-                                </tr>
-                                
-                            </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
-                        </div>
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1711?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1711?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/e-groshi.png" alt="Dinero"></a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1914?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                        </div> -->
+                        
+                        
+                       
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1711?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1711?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/e-groshi.png" alt="Dinero"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -506,52 +674,12 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1711?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
-                        </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1509?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1509?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/alexcredit.jpg" alt="bystro"></a>
-                            <div class="bank-features">
-                                <b>Под 0 процентов!</b>
-                            </div>
-                            <table class="bank-properties">
-                                <tr class="bank-property">
-                                    <td>
-                                        Первый кредит:
-                                    </td>
-                                    <td>
-                                        До 1000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Max Сумма:
-                                    </td>
-                                    <td>
-                                        До 12000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Процент:
-                                    </td>
-                                    <td>
-                                        от 2%
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Возвраст:
-                                    </td>
-                                    <td>
-                                        от 18 лет
-                                    </td>
-                                </tr>
-                            </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1509?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1711?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
                         </div>
                         
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/creditplus.png" alt="bystro"></a>
+                        
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/creditplus.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -589,10 +717,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1200?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1200?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/GlobalCredit.png" alt="bystro"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1200?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1200?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/GlobalCredit.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -630,11 +758,11 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1200?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1200?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         <!--  
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/2539?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/2539?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/bizpozika.svg" alt="creditkasa"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/2539?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/2539?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/bizpozika.svg" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -673,11 +801,11 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/2539?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/2539?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div>
                         
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/miloan12.png" alt="Dinero"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/miloan12.png" alt="Dinero"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -716,10 +844,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1436?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/creditplus.png" alt="bystro"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/creditplus.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -757,10 +885,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('https://rdr.pdlsd.net/in/offer/2606?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://rdr.pdlsd.net/in/offer/2606?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/zecredit.png" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('https://rdr.pdlsd.net/in/offer/2606?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://rdr.pdlsd.net/in/offer/2606?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/zecredit.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -798,11 +926,11 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="https://rdr.pdlsd.net/in/offer/2606?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://rdr.pdlsd.net/in/offer/2606?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         <!-- 
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://go.salesdoubler.net/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://go.salesdoubler.net/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/safezaim.jpg" alt="creditkasa"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://go.salesdoubler.net/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://go.salesdoubler.net/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/safezaim.jpg" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -841,12 +969,12 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="https://go.salesdoubler.net/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://go.salesdoubler.net/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         <!-- 
                         
-                         <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                         <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -884,10 +1012,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/credit7.png" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/credit7.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -925,10 +1053,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/cly.png" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/cly.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -966,11 +1094,11 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
                          
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://rdr.pdlsd.net/in/offer/2605?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://rdr.pdlsd.net/in/offer/2605?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mandarino.jpg" alt="bystro"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://rdr.pdlsd.net/in/offer/2605?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://rdr.pdlsd.net/in/offer/2605?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mandarino.jpg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1008,7 +1136,7 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="https://rdr.pdlsd.net/in/offer/2605?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://rdr.pdlsd.net/in/offer/2605?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         
                         <!-- 
@@ -1016,8 +1144,8 @@ $sdHost = 'https://go.salesdoubler.net';
                        
                        
                         
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/safezaim.jpg" alt="creditkasa"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/safezaim.jpg" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1056,10 +1184,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1097,10 +1225,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/cly.png" alt="bystro"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/cly.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1138,15 +1266,15 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/2591?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         <!--  -->
                         
                         
                         
                         
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1184,10 +1312,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1704?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1704?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/creditkasa.jpg" alt="Dinero"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1704?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1704?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="dinero" class="bank-img"><img id="dinero" src="images/creditkasa.jpg" alt="Dinero"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1226,10 +1354,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1704?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1704?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="dinero" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                       <!--  <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/dinero.png
+                       <!--  <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/dinero.png
                             " alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
@@ -1268,10 +1396,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1309,10 +1437,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                         <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/mazila.jpg" alt="creditkasa"></a>
+                         <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/mazila.jpg" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1351,14 +1479,14 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         <!--  -->
                         <!--  -->
                         
                        
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/schvidko.jpeg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1396,10 +1524,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1272?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/ukrpozika.png
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/ukrpozika.png
                             " alt="svgroshi"></a>
                             <div class="bank-features">
                                 <b>Для повторных клиентов - до 20000 грн под 1%</b>
@@ -1439,10 +1567,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
                             " alt="svgroshi"></a>
                             <div class="bank-features">
                                 <b>Для повторных клиентов - до 20000 грн под 1%</b>
@@ -1482,10 +1610,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/moneyveo.png" alt="creditkasa"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/moneyveo.png" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1524,12 +1652,12 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         <!-- 
                         
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/safezaim.jpg" alt="creditkasa"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/safezaim.jpg" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1568,10 +1696,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/2561?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/moneyveo.png" alt="creditkasa"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/moneyveo.png" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1610,10 +1738,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/250?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mistercash.svg" alt="bystro"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mistercash.svg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1651,13 +1779,13 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="https://www.prtslinprtslink.com/in/offer/1712?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div>
                         
                          -->
                         <!--  -->
-                       <!--  <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/creditkasa.jpg" alt="creditkasa"></a>
+                       <!--  <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/creditkasa.jpg" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1696,13 +1824,13 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div>
                          
                         
                         
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="miloan" class="bank-img"><img id="miloan" src="images/kredit7.jpg" alt="miloan"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="miloan" class="bank-img"><img id="miloan" src="images/kredit7.jpg" alt="miloan"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1741,11 +1869,11 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="miloan" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/2099?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="miloan" target="_blank" class="bank-link">Получить займ</a>
                         </div>
                         
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/moneyveo.png" alt="creditkasa"></a>
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="creditkasa" class="bank-img"><img id="creditkasa" src="images/moneyveo.png" alt="creditkasa"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -1784,10 +1912,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/2486?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="creditkasa" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
                             " alt="svgroshi"></a>
                             <div class="bank-features">
                                 <b>Для повторных клиентов - до 20000 грн под 1%</b>
@@ -1827,52 +1955,12 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                        <!--  
                          -->
                         
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mycredit.svg" alt="bystro"></a>
-                            <div class="bank-features">
-                                <b>Под 0 процентов!</b>
-                            </div>
-                            <table class="bank-properties">
-                                <tr class="bank-property">
-                                    <td>
-                                        Первый кредит:
-                                    </td>
-                                    <td>
-                                        До 6000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Max Сумма:
-                                    </td>
-                                    <td>
-                                        До 12000 грн.
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Процент:
-                                    </td>
-                                    <td>
-                                        от 0%
-                                    </td>
-                                </tr>
-                                <tr class="bank-property">
-                                    <td>
-                                        Возвраст:
-                                    </td>
-                                    <td>
-                                        от 18 лет
-                                    </td>
-                                </tr>
-                            </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
-                        </div> -->
+                        <!--  -->
                         
                         
                         
@@ -1892,8 +1980,8 @@ $sdHost = 'https://go.salesdoubler.net';
                         
                         <!--
                         
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
                             " alt="svgroshi"></a>
                             <div class="bank-features">
                                 <b>Под 2 процента!</b>
@@ -1933,10 +2021,10 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
                         </div>
-                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
+                        <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-img"><img  id="svgroshi" src="images/vasha.png
                             " alt="svgroshi"></a>
                             <div class="bank-features">
                                 <b>Под 2 процента!</b>
@@ -1976,12 +2064,12 @@ $sdHost = 'https://go.salesdoubler.net';
                                 </tr>
                                 
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1411?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="svgroshi" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         
                         
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/creditplus.png" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/creditplus.png" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -2019,11 +2107,11 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1844?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         
-                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mycredit.svg" alt="bystro"></a>
+                        <!-- <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/mycredit.svg" alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
                             </div>
@@ -2061,11 +2149,11 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         
-                       <!--  <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
-                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/ccloan.png
+                       <!--  <div class="bank" style="cursor: pointer;" onclick="window.open('<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>');fbq('track', 'Lead');">
+                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" target="_blank" id="bystro" class="bank-img"><img id="bystro" src="images/ccloan.png
                             " alt="bystro"></a>
                             <div class="bank-features">
                                 <b>Под 0 процентов!</b>
@@ -2104,14 +2192,14 @@ $sdHost = 'https://go.salesdoubler.net';
                                     </td>
                                 </tr>
                             </table>
-                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
+                            <a href="<?php echo $sdHost;?>/in/offer/1986?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" onclick="fbq('track', 'Lead');" id="bystro" target="_blank" class="bank-link">Получить займ</a>
                         </div> -->
                         
                         
                         
                     </div>
                     <!-- <div class="bottom-banner">
-                        <a href="https://go.salesdoubler.net/in/offer/1261?aid=63223&source=gdn&campaign=<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" style="text-decoration: none;"> <img src="banner.png" alt="banner"></a>
+                        <a href="https://go.salesdoubler.net/in/offer/1261?aid=63223&source=gdn&<?php echo $gclid;?>&promo=<?php echo $promo;?>&tid1=UA-118752159-1&tid2=<?php echo $tid2;?>" style="text-decoration: none;"> <img src="banner.png" alt="banner"></a>
                     </div>-->
                     <div class="main-text">
                         <div class="main-text-item">
@@ -2248,7 +2336,7 @@ $sdHost = 'https://go.salesdoubler.net';
                 </div>
             </main>
         </div>
-        
+        <a href="http://bit.ly/2HlaV3m" target="_blank" class="viber_chat"></a>
         <a href="#" class="bank-link" style="position:relative; left: auto; transform: none; margin-bottom: 50px; bottom: 10px;">Наверх</a>
         
         
@@ -2342,5 +2430,6 @@ $sdHost = 'https://go.salesdoubler.net';
         }); */
         
         </script>
+        <script src="/index.min.js?v20180913"></script>
     </body>
 </html>
